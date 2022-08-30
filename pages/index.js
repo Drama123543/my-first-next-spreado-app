@@ -3,6 +3,8 @@ import { useDispatch } from 'react-redux'
 import Link from 'next/link'
 import { startClock } from '../actions'
 import Examples from '../components/examples'
+import Repo from '../components/repo';
+import RepoShare from '../components/repo-share';
 
 const Index = () => {
   const dispatch = useDispatch()
@@ -16,6 +18,11 @@ const Index = () => {
       <Link href="/show-redux-state">
         <a>Click to see current Redux State</a>
       </Link>
+      <section>
+        <h2>repo info</h2>
+        <Repo />
+        <RepoShare />
+      </section>
     </>
   )
 }
