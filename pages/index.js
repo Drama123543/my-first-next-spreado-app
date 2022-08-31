@@ -1,10 +1,30 @@
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import Link from 'next/link'
+import {
+  createSpreadoReduxPreloadedState,
+  renderSwrResponse,
+} from 'spreado/for-redux-swr'
 import { startClock } from '../actions'
 import Examples from '../components/examples'
-import Repo from '../components/repo';
+import Repo, {
+  DEFAULT_REPO_NAME,
+  fetchRepoInfo,
+  INDEX_OF_REPO_SWR
+} from '../components/repo';
 import RepoShare from '../components/repo-share';
+
+export async function getServerSideProps() {
+  const repoInfo = await fetchRepoInfo(DEFAULT_REPO_NAME)
+
+  return {
+    props: {
+      initialReduxState: createSpreadoReduxPreloadedState({
+        [INDEX_OF_REPO_SWR]: renderSwrResponse(repoInfo)
+      }),
+    }
+  }
+}
 
 const Index = () => {
   const dispatch = useDispatch()
